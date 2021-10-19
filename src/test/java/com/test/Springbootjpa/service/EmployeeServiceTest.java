@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,5 +26,13 @@ class EmployeeServiceTest {
 
     @Test
     void findById() {
+        Optional<Employee> employee = employeeRepository.findById(1);
+        if (!employee.isPresent()) {
+            throw new RuntimeException("Employee not found");
+        }
+        Employee emp = employee.get();
+        String name = emp.getFirstName();
+        System.out.println("Employee name : " + name);
+        assertEquals("Ajith", name);
     }
 }
